@@ -1,9 +1,11 @@
 from telegram import Bot, ParseMode
+from helpers import report_exception
 from poem_obtainer import get_poems
 from poem_processor import process_poem
 from tkn import TOKEN, GROUP_ID
 
 
+@report_exception
 def send_poems():
     bot = Bot(token=TOKEN)
     for poem in get_poems():
