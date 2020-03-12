@@ -3,8 +3,6 @@ import requests
 from bs4 import BeautifulSoup
 
 _prefix = 'http://поэтика.рф'
-
-
 # random.seed(1)
 
 
