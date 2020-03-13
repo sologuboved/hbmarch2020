@@ -2,6 +2,7 @@ from telegram import constants
 
 
 def process_poem(link, name, title, poem):
+    print(link)
     poem = '<b>{}</b> - <a href="{}">{}</a>\n\n{}'.format(name, link, title, poem.strip())
     if len(poem) > constants.MAX_MESSAGE_LENGTH:
         return split(poem)
