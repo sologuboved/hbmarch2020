@@ -19,4 +19,5 @@ def split(poem):
             chunk = line
         else:
             chunk += line
+    chunks.append(chunk)
     return chunks
