@@ -3,18 +3,23 @@ import requests
 from bs4 import BeautifulSoup
 
 _prefix = 'http://поэтика.рф'
-# random.seed(2)
+random.seed(2)
 
 
-def grab_random(items):
-    item = items[random.randrange(len(items))].find('a')
-    return item.get_text().strip(), item.get('href').strip()
+def grab_random(items, excluded_names=()):
+    for _ in range(30):
+        item = items[random.randrange(len(items))].find('a')
+        name = item.get_text().strip()
+        if name not in excluded_names:
+            break
+    return name, item.get('href').strip()
 
 
 def choose_poet(period):
     return grab_random(BeautifulSoup(
         requests.get(_prefix + '/раздел/' + period).content, 'lxml'
-    ).find('div', {'id': 'period-authors'}).find_all('li'))
+    ).find('div', {'id': 'period-authors'}).find_all('li'),
+                       ("Асадов Эдуард", "Надсон Семен"))
 
 
 def choose_title(period):
