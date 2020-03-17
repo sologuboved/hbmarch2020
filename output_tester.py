@@ -10,8 +10,13 @@ def see_output(link_postfix, post):
     link = 'https://поэтика.рф/поэты/' + link_postfix
     soup = BeautifulSoup(requests.get(link).content, 'lxml')
     name, title = map(str.strip, soup.find('title').text.split('–'))
-    poem = soup.find('div', {'class': "content clearfix"}).text
-    poem = process_poem(link, name, title, poem)
+    poem = soup.find('div', {'class': "content clearfix"})
+    for sup in poem.find_all('sup'):
+        sup.replace_with('[{}]'.format(sup.text))
+    for note in poem.find_all('div', {'class': 'note'}):
+        if note.text == 'Примечания':
+            note.replace_with('\n<i>Примечания</i>\n')
+    poem = process_poem(link, name, title, poem.text)
     if post:
         bot = Bot(token=TOKEN)
         for chunk in poem:
@@ -24,4 +29,5 @@ def see_output(link_postfix, post):
 
 
 if __name__ == '__main__':
-    see_output('карамзин/стихи/16243/странность-любви-или-бессонница', post=True)
+    see_output('карамзин/стихи/16243/странность-любви-или-бессонница', True)
+    # see_output('ломоносов/стихи/1930/в-тополевой-тени-гуляя-муравей', False)

@@ -27,9 +27,13 @@ def choose_title(period):
 def scrape_poem(period):
     name, (title, link_postfix) = choose_title(period)
     link = _prefix + link_postfix
-    return link, name, title, BeautifulSoup(
-        requests.get(link).content, 'lxml'
-    ).find('div', {'class': "content clearfix"}).text
+    poem = BeautifulSoup(requests.get(link).content, 'lxml').find('div', {'class': "content clearfix"})
+    for sup in poem.find_all('sup'):
+        sup.replace_with('[{}]'.format(sup.text))
+    for note in poem.find_all('div', {'class': 'note'}):
+        if note.text == 'Примечания':
+            note.replace_with('\n<i>Примечания</i>\n')
+    return link, name, title, poem.text
 
 
 def get_poems():
