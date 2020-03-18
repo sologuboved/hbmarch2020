@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 
 _prefix = 'http://поэтика.рф'
-# random.seed(2)
+# random.seed(1)
 
 
 def grab_random(items, excluded_names=()):
@@ -50,4 +50,4 @@ def get_poems():
     return [scrape_poem(period) for period in (
         'Поэзия-XVIII-века',
         'Золотой-век-русской-поэзии',
-        ('Поэзия-Серебряного-века', 'Поэзия-советского-периода')[random.choice([0, 0, 0, 1])])]
+        ('Поэзия-Серебряного-века', 'Поэзия-советского-периода')[random.choice([0] * 4 + [1])])]
