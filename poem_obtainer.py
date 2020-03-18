@@ -7,12 +7,17 @@ random.seed(2)
 
 
 def grab_random(items, excluded_names=()):
-    for _ in range(30):
-        item = items[random.randrange(len(items))].find('a')
-        name = item.get_text().strip()
-        if name not in excluded_names:
-            break
-    return name, item.get('href').strip()
+    if excluded_names:
+        acceptable = list()
+        for item in items:
+            item = item.find('a')
+            name = item.get_text().strip()
+            if name in excluded_names:
+                continue
+            acceptable.append((name, item.get('href').strip()))
+        return acceptable[random.randrange(len(acceptable))]
+    item = items[random.randrange(len(items))].find('a')
+    return item.get_text().strip(), item.get('href').strip()
 
 
 def choose_poet(period):
