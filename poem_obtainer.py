@@ -3,7 +3,9 @@ import requests
 from bs4 import BeautifulSoup
 
 _prefix = 'http://поэтика.рф'
-# random.seed(1)
+
+
+# random.seed(21)
 
 
 def grab_random(items, excluded_names=()):
@@ -24,7 +26,7 @@ def choose_poet(period):
     return grab_random(BeautifulSoup(
         requests.get(_prefix + '/раздел/' + period).content, 'lxml'
     ).find('div', {'id': 'period-authors'}).find_all('li'),
-                       ("Асадов Эдуард", "Надсон Семен"))
+                       ("Асадов Эдуард", "Надсон Семен", "Грибоедов Александр", "Рубцов Николай"))
 
 
 def choose_title(period):
