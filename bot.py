@@ -3,7 +3,7 @@ from time import sleep
 from helpers import report_exception
 from poem_obtainer import get_poems
 from poem_processor import process_poem
-from tkn import TOKEN, GROUP_ID
+from tkn import *
 
 
 # http://поэтика.рф/поэты/державин/стихи/2049/водопад
