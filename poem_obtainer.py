@@ -29,6 +29,15 @@ def get_titles(poet_postfix):
 
 def scrape_poem(url):
     poem = BeautifulSoup(requests.get(url).content, 'lxml').find('div', {'class': "content clearfix"})
+    if "Рыжий Борис" in poem:
+        print(url)
+        print('-*-*-*-*-')
+        print(requests.get(url).content)
+        print('-*-*-*-*-')
+        print(BeautifulSoup(requests.get(url).content, 'lxml'))
+        print('-*-*-*-*-')
+        print(poem)
+        return
     for sup in poem.find_all('sup'):
         sup.replace_with('[{}]'.format(sup.text))
     for note in poem.find_all('div', {'class': 'note'}):
@@ -44,6 +53,8 @@ def get_poem(period):
         for title, poem_postfix in get_titles(poet_postfix):
             url = _prefix + poem_postfix
             poem = scrape_poem(url)
+            if poem is None:
+                continue
             if len(poem) <= 8000:
                 return url, poet, title, poem
 
@@ -56,4 +67,6 @@ def get_poems():
 
 
 if __name__ == '__main__':
-    print(get_poems())
+    # print(scrape_poem('http://поэтика.рф/поэты/рылеев/стихи/14400/на-смерть-сына'))
+    # print(get_poems())
+    ...
