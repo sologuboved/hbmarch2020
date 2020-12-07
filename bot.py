@@ -24,6 +24,6 @@ def send_poems(chat_id=GROUP_ID):
 
 
 if __name__ == '__main__':
-    from tkn import TRACEBACKS_ID
-    send_poems(TRACEBACKS_ID)
-    # send_poems()
+    # from tkn import TRACEBACKS_ID
+    # send_poems(TRACEBACKS_ID)
+    send_poems()
