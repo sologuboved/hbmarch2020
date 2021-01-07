@@ -29,7 +29,7 @@ def get_titles(poet_postfix):
 
 def scrape_poem(url):
     poem = BeautifulSoup(requests.get(url).content, 'lxml').find('div', {'class': "content clearfix"})
-    if "Рыжий Борис" in poem:
+    if 'Рыжий' in poem:
         print(url)
         print('-*-*-*-*-')
         print(requests.get(url).content)
